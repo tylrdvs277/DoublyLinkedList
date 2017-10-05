@@ -90,15 +90,11 @@ class OrderedList:
                 return idx
             current = current.get_next()
             idx += 1
-        raise IndexError
+        raise ValueError
 
-    def pop(self):
-        current = self.sentinel.get_prev()
-        current.get_prev().set_next(current.get_next())
-        current.get_next().set_prev(current.get_prev())
-        self.num_items -= 1
-
-    def pop(self, pos):
+    def pop(self, pos = None):
+        if pos == None:
+            pos = self.num_items - 1
         if not (0 <= pos <= self.num_items - 1):
             raise IndexError
         if pos <= self.num_items / 2:

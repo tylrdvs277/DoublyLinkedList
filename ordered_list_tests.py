@@ -73,6 +73,7 @@ class TestLab4(unittest.TestCase):
         self.assertEqual(mylist.pop(0), 10)
         self.assertEqual(mylist.pop(0), 11)
         self.assertEqual(mylist.pop(4), 16)
+        self.assertEqual(mylist.pop(), 20)
 
 
 if __name__ == "__main__":
