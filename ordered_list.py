@@ -111,8 +111,7 @@ class OrderedList:
             else:
                 current = current.get_prev()
             idx += step
-        data = current.get_data()
         self.num_items -= 1
         current.get_prev().set_next(current.get_next())
         current.get_next().set_prev(current.get_prev())
-        return data
+        return current.get_data()
