@@ -46,7 +46,8 @@ class OrderedList:
         Modifies the existing list and returns None."""
         current = self.sentinel.get_next()
         temp = Node(item)
-        while current.get_data() != None and current.get_data() < item:
+        while (current.get_data() != None and 
+               current.get_data() < item):
             current = current.get_next()
         temp.set_next(current)
         current.get_prev().set_next(temp)
@@ -54,41 +55,56 @@ class OrderedList:
         current.set_prev(temp)
         self.num_items += 1
 
-    def remove(self, item):
+    def remove(self, item, times = 1):
         """Removes a specific item in the first place it occurs (from front)."""
         """Takes an item to be removed.
         Modifies the existing list and returns None. Raises an error if the item isn't in the list."""
+        removed = 0
         current = self.sentinel.get_next()
-        while current.get_data() != None:
+        while (current.get_data() != None and 
+               removed < times and 
+               current.get_data() <= item):
             if current.get_data() == item:
                 current.get_prev().set_next(current.get_next())
                 current.get_next().set_prev(current.get_prev())
                 self.num_items -= 1
-                return
+                removed += 1
             current = current.get_next()
-        raise ValueError
+        if removed < times:
+            raise ValueError
+
+    def count(self, item):
+        """Determines the amount of times an item appears in a list."""
+        """Takes an item to be counted.
+        Returns an int representing the amount of times the item appears."""
+        current = self.sentinel.get_next()
+        count = 0
+        while (current.get_data() != None and 
+               current.get_data() <= item):
+            if current.get_data() == item:
+                count += 1
+            current = current.get_next()
+        return count
 
     def search_forward(self, item):
         """Checks for an item in the list starting from the front."""
         """Takes an item to look for.
         Returns True if the item is in the list and False otherwise."""
         current = self.sentinel.get_next()
-        while current.get_data() != None:
-            if current.get_data() == item:
-                return True
+        while (current.get_data() != None and
+               current.get_data() < item):
             current = current.get_next()
-        return False
+        return current.get_data() == item
 
     def search_backward(self, item):
         """Checks for an item in the list starting from the back."""
         """Takes an item to look for.
         Returns True if the item is in the list and False otherwise."""
         current = self.sentinel.get_prev()
-        while current.get_data() != None:
-            if current.get_data() == item:
-                return True
+        while (current.get_data() != None and
+               current.get_data() > item):
             current = current.get_prev()
-        return False
+        return current.get_data() == item
 
     def is_empty(self):
         """Checks if there are any elements in the list."""
@@ -108,11 +124,12 @@ class OrderedList:
         Returns an int representing the position of the item in the list."""
         idx = 0 
         current = self.sentinel.get_next()
-        while current.get_data() != None:
-            if current.get_data() == item:
-                return idx
+        while (current.get_data() != None and
+               current.get_data() < item):
             current = current.get_next()
             idx += 1
+        if current.get_data() == item:
+            return idx
         raise ValueError
 
     def pop(self, pos = None):

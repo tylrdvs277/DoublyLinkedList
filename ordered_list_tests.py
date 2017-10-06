@@ -21,7 +21,7 @@ class TestLab4(unittest.TestCase):
         self.assertEqual(mylist.pop(0), 34)
 
 
-    def test_remove(self):
+    def test_remove_1(self):
         """Tests remove by adding two items and removing one.
         Checks for an error when removing an item not in the list."""
         mylist = OrderedList()
@@ -33,6 +33,24 @@ class TestLab4(unittest.TestCase):
         with self.assertRaises(ValueError):
             mylist.remove(35)
 
+    def test_remove_2(self):
+        """Tests remove by adding three of the same items and removing one.
+        Checks that one of the items remains in the list."""
+        mylist = OrderedList()
+        mylist.add(34)
+        mylist.add(34)
+        mylist.add(34)
+        mylist.remove(34, 2)
+        self.assertEqual(mylist.count(34), 1)
+
+
+    def test_count(self):
+        mylist = OrderedList()
+        self.assertEqual(mylist.count(10), 0)
+        mylist.add(10)
+        self.assertEqual(mylist.count(10), 1)
+        mylist.add(10)
+        self.assertEqual(mylist.count(10), 2)
 
     def test_search_forward(self):
         """Adds two items and makes sure they are found.
@@ -90,6 +108,7 @@ class TestLab4(unittest.TestCase):
         self.assertEqual(mylist.pop(5), 18)
         self.assertEqual(mylist.pop(), 20)
         self.assertEqual(mylist.pop(-2), 17)
+        self.assertEqual(mylist.pop(-5), 12)
 
 
 if __name__ == "__main__":
