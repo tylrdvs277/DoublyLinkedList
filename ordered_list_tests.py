@@ -52,6 +52,14 @@ class TestLab4(unittest.TestCase):
         mylist.add(10)
         self.assertEqual(mylist.count(10), 2)
 
+
+    def test_sum(self):
+        mylist = OrderedList()
+        for i in range(11):
+            mylist.add(i)
+        self.assertEqual(mylist.sum(), 55)
+
+
     def test_search_forward(self):
         """Adds two items and makes sure they are found.
         Searches for an item not in the list."""
