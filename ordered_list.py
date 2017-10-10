@@ -118,6 +118,13 @@ class OrderedList:
         Returns an int representing the amount of items in the list."""
         return self.num_items
 
+    def sum(self):
+    	total = 0
+    	current = current.get_next()
+    	while current.get_data() != None:
+    		total += current.get_data()
+    	return total
+
     def index(self, item):
         """Determines the index of an item in the list."""
         """Takes an item to look for in the list.
